@@ -167,6 +167,7 @@ endif()
 
 # Lua
 find_package(Lua REQUIRED)
+message(STATUS "Using Lua ${LUA_VERSION_STRING}")
 set(EXTRA_LIBS ${EXTRA_LIBS} ${LUA_LIBRARIES})
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   # Lua static library for linux depends on dl.so
