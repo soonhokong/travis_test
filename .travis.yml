@@ -24,7 +24,7 @@ install:
   fi
 - if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
       wget https://dl.dropboxusercontent.com/u/203889738/gcc/clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz;
-      sudo tar xfz gcc-4.9-OSX.tar.gz -C /;
+      sudo tar xfz clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz -C /;
       sudo chown -R `whoami` /usr/bin;
       export LIBRARY_PATH=/usr/lib:/usr/local/lib;
   fi
