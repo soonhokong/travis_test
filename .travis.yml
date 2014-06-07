@@ -7,21 +7,21 @@ env:
   - CMAKE_CXX_COMPILER=g++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=51
 # - CMAKE_CXX_COMPILER=g++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=52
 # - CMAKE_CXX_COMPILER=g++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=JIT
- - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF PUSH_TO_CDASH=TRUE LUA=51
+  - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF PUSH_TO_CDASH=TRUE LUA=51
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF PUSH_TO_CDASH=TRUE LUA=52
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF PUSH_TO_CDASH=TRUE LUA=JIT
- - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=51
+  - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=51
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=52
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON PUSH_TO_CDASH=TRUE LUA=JIT
 
 install:
-- if [[ $CMAKE_CXX_COMPILER == g++ ]]; then
+- if [[ ${CMAKE_CXX_COMPILER} == g++ ]]; then
       wget https://dl.dropboxusercontent.com/u/203889738/gcc/gcc-4.9-OSX.tar.gz;
       sudo tar xfz gcc-4.9-OSX.tar.gz -C /;
       sudo chown -R `whoami` /usr/local;
       export CPLUS_INCLUDE_PATH=/usr/local/include/c++/4.9.0:/usr/local/include/c++/4.9.0/x86_64-apple-darwin13.1.0;
       export LIBRARY_PATH=/usr/local/lib;
-  else if [[ $CMAKE_CXX_COMPILER == clang++ ]]; then
+  else if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
       wget https://dl.dropboxusercontent.com/u/203889738/gcc/clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz;
       sudo tar xfz gcc-4.9-OSX.tar.gz -C /;
       sudo chown -R `whoami` /usr/bin;
@@ -34,7 +34,7 @@ install:
 - if [[ $LUA == 51 ]];  then brew install lua; fi
 - if [[ $LUA == JIT ]]; then brew install luajit; fi
 - brew install cmake ninja
-- ${CMAKE_CXX_COMPILER} --version
+#- ${CMAKE_CXX_COMPILER} --version
 
 before_script:
 - mkdir build
