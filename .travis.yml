@@ -21,7 +21,8 @@ install:
       sudo chown -R `whoami` /usr/local;
       export CPLUS_INCLUDE_PATH=/usr/local/include/c++/4.9.0:/usr/local/include/c++/4.9.0/x86_64-apple-darwin13.1.0;
       export LIBRARY_PATH=/usr/local/lib;
-  else if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
+  fi
+- if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
       wget https://dl.dropboxusercontent.com/u/203889738/gcc/clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz;
       sudo tar xfz gcc-4.9-OSX.tar.gz -C /;
       sudo chown -R `whoami` /usr/bin;
