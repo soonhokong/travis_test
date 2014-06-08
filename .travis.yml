@@ -21,9 +21,11 @@ install:
 - brew install mpfr
 - if [[ ${CMAKE_CXX_COMPILER} == g++ ]]; then
       brew install gcc;
+      brew link gcc;
   fi
 - if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
       brew install llvm;
+      brew link llvm;
   fi
 - ${CMAKE_CXX_COMPILER} --version
 - if [[ $LUA == 52 ]];  then brew tap homebrew/versions; brew install lua52; fi
