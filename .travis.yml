@@ -16,6 +16,9 @@ env:
 
 install:
 - brew update
+- export PATH=/usr/local/bin:$PATH
+- brew install gmp
+- brew install mpfr
 - if [[ ${CMAKE_CXX_COMPILER} == g++ ]]; then
       brew install gcc;
   fi
@@ -23,9 +26,6 @@ install:
       brew install llvm;
   fi
 - ${CMAKE_CXX_COMPILER} --version
-- brew update
-- brew install gmp; brew unlink gmp; brew link --overwrite gmp
-- brew install mpfr; brew unlink mpfr; brew link --overwrite mpfr
 - if [[ $LUA == 52 ]];  then brew tap homebrew/versions; brew install lua52; fi
 - if [[ $LUA == 51 ]];  then brew install lua; fi
 - if [[ $LUA == JIT ]]; then brew install luajit; fi
