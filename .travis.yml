@@ -1,37 +1,36 @@
 language: objective-c
 env:
   matrix:
-  - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=51
+  - CMAKE_CXX_COMPILER=g++-4.8 CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=51
 # - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=52
 # - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=JIT
-#  - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=51
+# - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=51
 # - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=52
 # - CMAKE_CXX_COMPILER=g++     CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=JIT
-  - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=51
+  - CMAKE_CXX_COMPILER=clang++ Cmake_Build_Type=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=51
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=52
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=OFF LUA=JIT
-#  - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=51
+# - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=51
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=52
 # - CMAKE_CXX_COMPILER=clang++ CMAKE_BUILD_TYPE=DEBUG TCMALLOC=OFF MULTI_THREAD=ON LUA=JIT
 
 install:
+- brew tap homebrew/versions
 - brew update
-- echo $PATH
-- export PATH=/usr/local/bin:$PATH
-- echo $PATH
 - brew install gmp
 - brew install mpfr
-- if [[ ${CMAKE_CXX_COMPILER} == g++ ]]; then
+- if [[ ${CMAKE_CXX_COMPILER} == g++-4.8 ]]; then
       brew install gcc;
       brew link gcc;
   fi
 - if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
-      brew install llvm;
-      brew link llvm;
+      wget https://dl.dropboxusercontent.com/u/203889738/gcc/clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz;
+      sudo tar xfz clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz -C /;
+      sudo chown -R `whoami` /usr/bin;
+      export LIBRARY_PATH=/usr/lib:/usr/local/lib;
   fi
 - ${CMAKE_CXX_COMPILER} --version
-- /usr/local/bin/${CMAKE_CXX_COMPILER} --version
-- if [[ $LUA == 52 ]];  then brew tap homebrew/versions; brew install lua52; fi
+- if [[ $LUA == 52 ]];  then brew install lua52; fi
 - if [[ $LUA == 51 ]];  then brew install lua; fi
 - if [[ $LUA == JIT ]]; then brew install luajit; fi
 - brew install cmake ninja
@@ -39,7 +38,7 @@ install:
 before_script:
 - mkdir build
 - cd build
-- cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DTCMALLOC=${TCMALLOC} -DMULTI_THREAD=${MULTI_THREAD} -DCMAKE_CXX_COMPILER=/usr/local/bin/${CMAKE_CXX_COMPILER} ../src -G Ninja
+- cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DTCMALLOC=${TCMALLOC} -DMULTI_THREAD=${MULTI_THREAD} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} ../src -G Ninja
 - cd ..
 
 script:
