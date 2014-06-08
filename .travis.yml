@@ -17,7 +17,7 @@ env:
 install:
 - brew update
 - if [[ ${CMAKE_CXX_COMPILER} == g++ ]]; then
-      brew install gcc
+      brew install gcc;
       # wget https://dl.dropboxusercontent.com/u/203889738/gcc/gcc-4.9-OSX.tar.gz;
       # sudo tar xfz gcc-4.9-OSX.tar.gz -C /;
       # sudo chown -R `whoami` /usr/local;
@@ -25,7 +25,7 @@ install:
       # export LIBRARY_PATH=/usr/local/lib;
   fi
 - if [[ ${CMAKE_CXX_COMPILER} == clang++ ]]; then
-      brew llvm
+      brew llvm;
       # wget https://dl.dropboxusercontent.com/u/203889738/gcc/clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz;
       # sudo tar xfz clang+llvm-3.4.1-x86_64-apple-darwin10.9.tar.xz -C /;
       # sudo chown -R `whoami` /usr/bin;
